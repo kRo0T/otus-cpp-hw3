@@ -16,15 +16,6 @@ std::ostream& operator<<(std::ostream& os, std::map<Key, Value, Comp, Alloc> con
    return os << "}\n";
 }
 
-template<typename T, typename A>
-std::ostream& operator<<(std::ostream& os, MyContainer<T, A> const& c)
-{
-   os << "{ ";
-   for(auto const& p: c)
-        os << "(" << p << ") ";
-   return os << "}\n";
-}
-
 int main(int, char**) {
     std::map<int, int> plain_map;
     int prev_factorial = 1;
@@ -50,7 +41,6 @@ int main(int, char**) {
     for (int i=0; i<10; i++) {
         tmp.push_back(i);
     }
-    tmp.print_nodes();
-    std::cout << tmp;
+    print(tmp);
     return 0;
 }

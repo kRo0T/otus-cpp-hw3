@@ -20,15 +20,15 @@ class MyContainer {
 
     using node_alloc_t = typename std::allocator_traits<allocator_type>::template rebind_alloc<Node<T>>;
 
-    Node<T>* root;
-    Node<T>* head;
     allocator_type allocator;
     node_alloc_t node_allocator;
+
+    Node<T>* root;
+    Node<T>* head;
 public:
     MyContainer(const allocator_type& a = allocator_type()) : allocator{a}, head{nullptr}, root{nullptr} {
         std::cout << "MyContainer ctr" << std::endl;
         auto node_allocator = allocator_type::rebind<Node<T>>::other(allocator);
-        std::cout << "OLOLO" << std::endl;
     }
     ~MyContainer() {
         std::cout << "MyContainer dctr" << std::endl;
@@ -51,11 +51,18 @@ public:
         }
         head = node;
     }
-    void print_nodes() {
-        auto it = root;
-        while (it != nullptr) {
-            std::cout << it->value << std::endl;
-            it = it->next;
-        } 
+
+    const Node<T>* get_root() const {
+        return root;
     }
 };
+
+template <typename T, typename A>
+void print(const MyContainer<T, A>& container) {
+        auto it = container.get_root();
+        while (it != nullptr) {
+            std::cout << it->value << ", ";
+            it = it->next;
+        }
+        std::cout << std::endl;
+    }
