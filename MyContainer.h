@@ -28,7 +28,7 @@ class MyContainer {
 public:
     MyContainer(const allocator_type& a = allocator_type()) : allocator{a}, head{nullptr}, root{nullptr} {
         std::cout << "MyContainer ctr" << std::endl;
-        auto node_allocator = allocator_type::rebind<Node<T>>::other(allocator);
+        auto node_allocator = node_alloc_t();
     }
     ~MyContainer() {
         std::cout << "MyContainer dctr" << std::endl;
