@@ -12,26 +12,26 @@ struct MyAllocator {
     };
 
     MyAllocator() noexcept {
-        std::cout << "MyAllocator ctr\n";
-        //std::cout << __FUNCSIG__ << std::endl;
+        //std::cout << "MyAllocator ctr\n";
+        //std::cout << __PRETTY_FUNCTION__ << std::endl;
         size = 0;
         capacity = 0;
     }
     MyAllocator(const MyAllocator& ot) {
-        std::cout << "MyAllocator copy ctr\n";
+        //std::cout << "MyAllocator copy ctr\n";
         size = ot.size;
         capacity = ot.capacity;
     }
 
     ~MyAllocator() {
-        std::cout << "MyAllocator dctr\n";
-        //std::cout << __FUNCSIG__ << std::endl;
-        std::cout << "\tMyAllocator Size: " << size << std::endl;
+        //std::cout << "MyAllocator dctr\n";
+        //std::cout << __PRETTY_FUNCTION__ << std::endl;
+        //std::cout << "\tMyAllocator Size: " << size << std::endl;
     }
 
     template<typename U> MyAllocator(const MyAllocator<U, ChunkSize>&) noexcept {
-        std::cout << "MyAllocator rebind ctr\n";
-        //std::cout << __FUNCSIG__ << std::endl;
+        //std::cout << "MyAllocator rebind ctr\n";
+        //std::cout << __PRETTY_FUNCTION__ << std::endl;
         size = 0;
         capacity = 0;
     }
@@ -47,12 +47,12 @@ private:
 
 template <typename T, int ChunkSize>
 T* MyAllocator<T, ChunkSize>::allocate (size_t n) {
-    std::cout << "MyAllocator allocate: " << n << std::endl;
-    //std::cout << __FUNCSIG__ << std::endl;
+    //std::cout << "MyAllocator allocate: " << n << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << std::endl;
 
     if (capacity-size < n) {
         if (capacity == 0) {
-            std::cout << "First alloc: " << capacity << std::endl;
+            //std::cout << "First alloc: " << capacity << std::endl;
             auto p = std::malloc(ChunkSize * sizeof(T));
             if (!p)
                 throw std::bad_alloc();
@@ -66,18 +66,18 @@ T* MyAllocator<T, ChunkSize>::allocate (size_t n) {
 
     size_t first_free = size;
     size += n;
-    std::cout << "MyAllocator allocate: " << &buffers[0][first_free] << std::endl;
+    //std::cout << "MyAllocator allocate: " << &buffers[0][first_free] << std::endl;
 	return &buffers[0][first_free];
 }
 
 template <typename T, int ChunkSize>
 void MyAllocator<T, ChunkSize>::deallocate(T* p, std::size_t ) {
-    std::cout << "MyAllocator deallocate: " << p << std::endl;
-    //std::cout << __FUNCSIG__ << std::endl;
+    //std::cout << "MyAllocator deallocate: " << p << std::endl;
+    //std::cout << __PRETTY_FUNCTION__ << std::endl;
     size -= 1;
-    //if (p)
+
     if (size <= 0) {
-        std::cout << "MyAllocator deallocate free: " << &buffers[0][0] << std::endl;
+        //std::cout << "MyAllocator deallocate free: " << &buffers[0][0] << std::endl;
         if (buffers.size() > 0)
             std::free(&buffers[0][0]);
     }

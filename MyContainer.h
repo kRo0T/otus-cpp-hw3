@@ -6,10 +6,10 @@ struct Node {
     T value;
     Node* next;
     Node(T value) : value{value}, next{nullptr} {
-        std::cout << "Node ctr" << std::endl;
+        //std::cout << "Node ctr" << std::endl;
     }
     ~Node() {
-        std::cout << "Node dctr" << std::endl;
+        //std::cout << "Node dctr" << std::endl;
     }
 };
 
@@ -27,11 +27,11 @@ class MyContainer {
     Node<T>* head;
 public:
     MyContainer(const allocator_type& a = allocator_type()) : allocator{a}, head{nullptr}, root{nullptr} {
-        std::cout << "MyContainer ctr" << std::endl;
+        //std::cout << "MyContainer ctr" << std::endl;
         auto node_allocator = node_alloc_t();
     }
     ~MyContainer() {
-        std::cout << "MyContainer dctr" << std::endl;
+        //std::cout << "MyContainer dctr" << std::endl;
         auto it = root;
         while (it) {
             auto t = it;
