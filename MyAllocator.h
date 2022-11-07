@@ -13,7 +13,7 @@ struct MyAllocator {
 
     MyAllocator() noexcept {
         std::cout << "MyAllocator ctr\n";
-        std::cout << __FUNCSIG__ << std::endl;
+        //std::cout << __FUNCSIG__ << std::endl;
         size = 0;
         capacity = 0;
     }
@@ -25,13 +25,13 @@ struct MyAllocator {
 
     ~MyAllocator() {
         std::cout << "MyAllocator dctr\n";
-        std::cout << __FUNCSIG__ << std::endl;
+        //std::cout << __FUNCSIG__ << std::endl;
         std::cout << "\tMyAllocator Size: " << size << std::endl;
     }
 
     template<typename U> MyAllocator(const MyAllocator<U, ChunkSize>&) noexcept {
         std::cout << "MyAllocator rebind ctr\n";
-        std::cout << __FUNCSIG__ << std::endl;
+        //std::cout << __FUNCSIG__ << std::endl;
         size = 0;
         capacity = 0;
     }
@@ -73,7 +73,7 @@ T* MyAllocator<T, ChunkSize>::allocate (size_t n) {
 template <typename T, int ChunkSize>
 void MyAllocator<T, ChunkSize>::deallocate(T* p, std::size_t ) {
     std::cout << "MyAllocator deallocate: " << p << std::endl;
-    std::cout << __FUNCSIG__ << std::endl;
+    //std::cout << __FUNCSIG__ << std::endl;
     size -= 1;
     //if (p)
     if (size <= 0) {
