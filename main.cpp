@@ -36,11 +36,16 @@ int main(int, char**) {
     }
     std::cout << custom_map;
 */
-    //MyContainer<int> tmp;
-    MyContainer<int, MyAllocator<int, 10>> tmp;
+    MyContainer<int> plain_container;
     for (int i=0; i<10; i++) {
-        tmp.push_back(i);
+        plain_container.push_back(i);
     }
-    print(tmp);
+    print(plain_container);
+
+    MyContainer<int, MyAllocator<int, 10>> custom_container;
+    for (int i=0; i<10; i++) {
+        custom_container.push_back(i);
+    }
+    print(custom_container);
     return 0;
 }
